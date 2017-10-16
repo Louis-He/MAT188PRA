@@ -12,3 +12,9 @@ y4 = polyval(coefs4,x);
 y5 = polyval(coefs5,x);
 
 plot(x,y2,x,y3,x,y4,x,y5);
+hold on
+plot(xpts,ypts,'rx');
+xlabel('x')
+ylabel('y')
+
+legend('2nd Order Curve Fit','3rd Order Curve Fit','4th Order Curve Fit','5th Order Curve Fit','known points')
