@@ -16,5 +16,6 @@ hold on
 plot(xpts,ypts,'rx');
 xlabel('x')
 ylabel('y')
+title('Polynomial Curve Fit')
 
 legend('2nd Order Curve Fit','3rd Order Curve Fit','4th Order Curve Fit','5th Order Curve Fit','known points')
