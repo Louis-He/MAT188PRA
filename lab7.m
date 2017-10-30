@@ -55,7 +55,7 @@ hold on
 plot(x, dLbep(p1,:))
 plot(x, dLcgp(p1,:))
 grid on
-legend('Fad','Fbe','Fcg')
+legend('Lad%','Lbe%','Lcg%')
 
 if AD && BE && CG
    true
