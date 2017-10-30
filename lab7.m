@@ -1,4 +1,4 @@
-E = 68e9 ; 
+E = 68.9e9 ; 
 %Aluminum Alloy 1100: 68.9e9 GPa
 %Nickel 200: 200e9 GPa
 %Steel Alloy 4340: 200e9 GPs
@@ -22,7 +22,7 @@ for p = 1:50
     j = 0;
     for d_01 = 1:160
         j = j + 1;
-        B = [p;d_01/10.0*p;0];
+        B = [p * 1000;d_01/10.0*p * 1000;0];
         solution = A\B;
         Fad(i,j) = solution(1,1);
         Fbe(i,j) = solution(2,1);
@@ -32,18 +32,18 @@ for p = 1:50
         dLbe = solution(2,1) * 5 / (E * 4e-4);
         dLcg = solution(3,1) * 2 / (E * 4e-4);
         
-        dLadp(i,j) = dLad / 4;
-        dLbep(i,j) = dLbe / 5;
-        dLcgp(i,j) = dLcg / 2;
+        dLadp(i,j) = dLad / 4.0;
+        dLbep(i,j) = dLbe / 5.0;
+        dLcgp(i,j) = dLcg / 2.0;
         
         if dLad / 4 > 0.1
-           AD = false 
+           AD = false;
         end
         if dLbe / 5 > 0.1
-           BE = false 
+           BE = false;
         end
         if dLcg / 2 > 0.1
-           CG = false 
+           CG = false;
         end
     end
 end
@@ -56,6 +56,8 @@ plot(x, dLcgp(50,:))
 grid on
 legend('Fad','Fbe','Fcg')
 
-AD
-BE
-CG
+if AD && BE && CG
+   true
+else
+    false
+end
