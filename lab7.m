@@ -1,7 +1,7 @@
 E = 68.9e9 ; 
 %Aluminum Alloy 1100: 68.9e9 GPa
-%Nickel 200: 200e9 GPa
-%Steel Alloy 4340: 200e9 GPa
+%Nickel 200: 204e9 GPa
+%Steel Alloy 4340: 207e9 GPa
 p1 = 50;%plot choice, the weight of P
 
 AD = true;
@@ -14,28 +14,23 @@ Fcg = [,];
 dLab = [,];
 dLbe = [,];
 dLcg = [,];
-i = 0;
-j = 0;
 
 A = [1 1 1;0 10 16; 24/(E * 4e-4) -80/(E * 4e-4) 20/(E * 4e-4)];
 for p = 1:50
-    i = i + 1;
-    j = 0;
-    for d_01 = 1:160
-        j = j + 1;
+    for d_01 = 1:160      
         B = [p * 1000;d_01 / 10.0 * p * 1000;0];
         solution = A\B;
-        Fad(i,j) = solution(1,1);
-        Fbe(i,j) = solution(2,1);
-        Fcg(i,j) = solution(3,1);
+        Fad(p,d_01) = solution(1);
+        Fbe(p,d_01) = solution(2);
+        Fcg(p,d_01) = solution(3);
         
         dLad = solution(1,1) * 4 / (E * 4e-4);
         dLbe = solution(2,1) * 5 / (E * 4e-4);
         dLcg = solution(3,1) * 2 / (E * 4e-4);
         
-        dLadp(i,j) = dLad / 4.0;
-        dLbep(i,j) = dLbe / 5.0;
-        dLcgp(i,j) = dLcg / 2.0;
+        dLadp(p,d_01) = dLad / 4.0;
+        dLbep(p,d_01) = dLbe / 5.0;
+        dLcgp(p,d_01) = dLcg / 2.0;
         
         if dLad / 4 > 0.001
            AD = false;
