@@ -24,13 +24,13 @@ for p = 1:50
         Fbe(p,d_01) = solution(2);
         Fcg(p,d_01) = solution(3);
         
-        dLad = solution(1,1) * 4 / (E * 4e-4);
-        dLbe = solution(2,1) * 5 / (E * 4e-4);
-        dLcg = solution(3,1) * 2 / (E * 4e-4);
+        dLad(p,d_01) = solution(1,1) * 4 / (E * 4e-4);
+        dLbe(p,d_01) = solution(2,1) * 5 / (E * 4e-4);
+        dLcg(p,d_01) = solution(3,1) * 2 / (E * 4e-4);
         
-        dLadp(p,d_01) = dLad / 4.0;
-        dLbep(p,d_01) = dLbe / 5.0;
-        dLcgp(p,d_01) = dLcg / 2.0;
+        dLadp(p,d_01) = dLad(p,d_01) / 4.0;
+        dLbep(p,d_01) = dLbe(p,d_01) / 5.0;
+        dLcgp(p,d_01) = dLcg(p,d_01) / 2.0;
         
         if dLad / 4 > 0.001
            AD = false;
@@ -43,14 +43,22 @@ for p = 1:50
         end
     end
 end
-
+%{
+x = linspace(0,16,160);
+plot(x, dLad(p1,:))
+hold on
+plot(x, dLbe(p1,:))
+plot(x, dLcg(p1,:))
+grid on
+legend('delta Lad','delta Lbe','delta Lcg')
+%}
 x = linspace(0,16,160);
 plot(x, dLadp(p1,:))
 hold on
 plot(x, dLbep(p1,:))
 plot(x, dLcgp(p1,:))
 grid on
-legend('Lad%','Lbe%','Lcg%')
+legend('elongation of Lad','elongation of Lbe','elongation of Lcg')
 
 if AD && BE && CG
    true
