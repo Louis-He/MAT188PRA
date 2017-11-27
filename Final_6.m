@@ -1,3 +1,4 @@
+%part A
 plot(robpos(:,2),robpos(:,end))
 title('position of the robots')
 xlabel('x-axis')
@@ -22,6 +23,7 @@ legend('velocity','acceleration')
 xlabel('time(s)')
 ylabel({'Velocity(m/s)','acceleration(m/s**2)'}) 
 
+%Part B
 % ploynomial curve fitting
 vxfit = polyfit(t,vx,4);
 vyfit = polyfit(t,vy,3);
@@ -72,4 +74,50 @@ title('acceleration of the robots on different axis')
 xlabel('time(s)')
 ylabel('Acceleration(m/s**2)')
 legend('acceleration_x(original)','acceleration_x(fitting)','acceleration_y(original)','acceleration_y(fitting)','acceleration(original)','acceleration(fitting)')
+%}
+
+%Part C
+t = linspace(0,60,61);
+sxc = 1.2.*sin((2.*pi)/60.*(t-15))+1.2;
+syc = 1.2.*sin((2.*pi)/60.*t);
+vc = []; vxc = []; vyc = []; ac = []; axc = []; ayc = [];
+for t = 1:60
+    vc(t) = sqrt(sxc(t+1)^2+syc(t+1)^2);
+    vxc(t) = sxc(t+1)-sxc(t);
+    vyc(t) = syc(t+1)-syc(t);
+    if t > 1
+        ac(t) = vc(t) - vc(t-1);
+        axc(t) = vxc(t) - vxc(t-1);
+        ayc(t) = vyc(t) - vyc(t-1);
+    end
+end
+t = linspace(1,60,60);
+% path of the robot
+hold off
+plot(sxc,syc)
+axis([0,2.4,-1.2,1.2])
+%}
+
+%{
+% velocity of the robot
+hold off
+plot(t,vxc)
+hold on
+plot(t,vyc)
+plot(t,vc)
+xlabel('time(s)')
+ylabel('Velocity(m/s)')
+legend('velocity_x','velocity_y','velocity')
+%}
+
+%{
+% acceleration of the robot
+hold off
+plot(t,axc)
+hold on
+plot(t,ayc)
+plot(t,ac)
+xlabel('time(s)')
+ylabel('Acceleration(m/s**2)')
+legend('acceleration_x','acceleration_y','acceleration')
 %}
