@@ -46,7 +46,7 @@ end
 %{
 plot(robpos(:,2),robpos(:,end))
 hold on
-plot(sx,sy)
+plot(sxfit,syfit)
 %}
 
 % compare fitting velocity model to original 
