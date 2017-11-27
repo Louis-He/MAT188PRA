@@ -26,4 +26,50 @@ ylabel({'Velocity(m/s)','acceleration(m/s**2)'})
 vxfit = polyfit(t,vx,4);
 vyfit = polyfit(t,vy,3);
 
-vxfit_x = 6.48721477811766e-07.*t^4 - 0.000117067573943751.*t^3 + 0.00703691201284210.*t^2 -0.153555493800963 .*t + 0.858668171894125;
+vxfit_x = 6.48721477811766e-07.*t.^4 - 0.000117067573943751.*t.^3 + 0.00703691201284210.*t.^2 -0.153555493800963.*t + 0.858668171894125;
+vyfit_y = -3.65664831812307e-06.*t.^3 + 0.000448610981891835.*t.^2 - 0.0275877310355124.*t + 0.481783300941877;
+vfit = sqrt(vxfit_x.^2 + vyfit_y.^2);
+
+sxfit = []; syfit = [];axfit = []; ayfit = [];afit = [];
+sxfit(1) = 0; syfit(1) = -3;
+for i = 2:60
+   sxfit(i) = sxfit(i-1) + vxfit_x(i-1);
+   syfit(i) = syfit(i-1) + vyfit_y(i-1);
+   axfit(i) = vxfit_x(i) - vxfit_x(i-1); 
+   ayfit(i) = vyfit_y(i) - vyfit_y(i-1);
+   afit(i) = axfit(i)^2 + ayfit(i)^2;
+end
+
+% plot fitting path [check purpose]
+%{
+plot(robpos(:,2),robpos(:,end))
+hold on
+plot(sx,sy)
+%}
+
+% compare fitting velocity model to original 
+hold off
+plot(t,vx)
+hold on
+plot(t,vxfit_x)
+plot(t,vy)
+plot(t,vyfit_y)
+plot(t,v)
+plot(t,vfit)
+title('velocity of the robots on different axis')
+xlabel('time(s)')
+ylabel('Velocity(m/s)')
+legend('velocity_x(original)','velocity_x(fitting)','velocity_y(original)','velocity_y(fitting)','velocity(original)','velocity(fitting)')
+%}
+
+% compare fitting acceleration model to original 
+%{
+hold off
+plot(t,a)
+hold on
+plot(t,afit)
+title('acceleration of the robots on different axis')
+xlabel('time(s)')
+ylabel('Acceleration(m/s**2)')
+legend('acceleration_x(original)','acceleration_x(fitting)','acceleration_y(original)','acceleration_y(fitting)','acceleration(original)','acceleration(fitting)')
+%}
