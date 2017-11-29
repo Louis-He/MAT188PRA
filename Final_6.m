@@ -84,7 +84,7 @@ vc = []; vxc = []; vyc = []; ac = []; axc = []; ayc = [];
 for t = 1:60
     vxc(t) = sxc(t+1)-sxc(t);
     vyc(t) = syc(t+1)-syc(t);
-    vc(t) = sqrt(vxc(t+1)^2+vyc(t+1)^2);
+    vc(t) = sqrt(vxc(t)^2+vyc(t)^2);
     if t > 1
         ac(t) = vc(t) - vc(t-1);
         axc(t) = vxc(t) - vxc(t-1);
