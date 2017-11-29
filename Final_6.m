@@ -82,9 +82,9 @@ sxc = 1.2.*sin((2.*pi)/60.*(t-15))+1.2;
 syc = 1.2.*sin((2.*pi)/60.*t);
 vc = []; vxc = []; vyc = []; ac = []; axc = []; ayc = [];
 for t = 1:60
-    vc(t) = sqrt(sxc(t+1)^2+syc(t+1)^2);
     vxc(t) = sxc(t+1)-sxc(t);
     vyc(t) = syc(t+1)-syc(t);
+    vc(t) = sqrt(vxc(t+1)^2+vyc(t+1)^2);
     if t > 1
         ac(t) = vc(t) - vc(t-1);
         axc(t) = vxc(t) - vxc(t-1);
