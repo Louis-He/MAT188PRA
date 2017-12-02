@@ -1,4 +1,6 @@
+load('robpos.mat')
 %part A
+figure;
 plot(robpos(:,2),robpos(:,end))
 title('position of the robots')
 xlabel('x-axis')
@@ -25,11 +27,11 @@ ylabel({'Velocity(m/s)','acceleration(m/s**2)'})
 
 %Part B
 % ploynomial curve fitting
-vxfit = polyfit(t,vx,4);
-vyfit = polyfit(t,vy,3);
+vxfit = polyfit(t,vx,5);
+vyfit = polyfit(t,vy,5);
 
-vxfit_x = 6.48721477811766e-07.*t.^4 - 0.000117067573943751.*t.^3 + 0.00703691201284210.*t.^2 -0.153555493800963.*t + 0.858668171894125;
-vyfit_y = -3.65664831812307e-06.*t.^3 + 0.000448610981891835.*t.^2 - 0.0275877310355124.*t + 0.481783300941877;
+vxfit_x = vxfit(1).*t.^5 + vxfit(2).*t.^4 + vxfit(3).*t.^3 + vxfit(4).*t.^2 + vxfit(5).*t + vxfit(6);
+vyfit_y = vyfit(1).*t.^5 + vyfit(2).*t.^4 + vyfit(3).*t.^3 + vyfit(4).*t.^2 + vyfit(5).*t + vyfit(6);
 vfit = sqrt(vxfit_x.^2 + vyfit_y.^2);
 
 sxfit = []; syfit = [];axfit = []; ayfit = [];afit = [];
@@ -43,38 +45,33 @@ for i = 2:60
 end
 
 % plot fitting path [check purpose]
-%{
+%
+figure;
 plot(robpos(:,2),robpos(:,end))
 hold on
 plot(sxfit,syfit)
 %}
 
 % compare fitting velocity model to original 
-hold off
-plot(t,vx)
+figure;
 hold on
-plot(t,vxfit_x)
-plot(t,vy)
-plot(t,vyfit_y)
 plot(t,v)
 plot(t,vfit)
-title('velocity of the robots on different axis')
+title('velocity of the robots')
 xlabel('time(s)')
 ylabel('Velocity(m/s)')
-legend('velocity_x(original)','velocity_x(fitting)','velocity_y(original)','velocity_y(fitting)','velocity(original)','velocity(fitting)')
-%}
+legend('velocity(original)','velocity(fitting)')
 
 % compare fitting acceleration model to original 
-%{
+figure;
 hold off
 plot(t,a)
 hold on
 plot(t,afit)
-title('acceleration of the robots on different axis')
+title('acceleration of the robots')
 xlabel('time(s)')
 ylabel('Acceleration(m/s**2)')
-legend('acceleration_x(original)','acceleration_x(fitting)','acceleration_y(original)','acceleration_y(fitting)','acceleration(original)','acceleration(fitting)')
-%}
+legend('acceleration(original)','acceleration(fitting)')
 
 %Part C
 t = linspace(0,60,61);
@@ -93,31 +90,22 @@ for t = 1:60
 end
 t = linspace(1,60,60);
 % path of the robot
-hold off
+figure;
 plot(sxc,syc)
 axis([0,2.4,-1.2,1.2])
-%}
 
-%{
 % velocity of the robot
-hold off
-plot(t,vxc)
+figure;
 hold on
-plot(t,vyc)
 plot(t,vc)
 xlabel('time(s)')
 ylabel('Velocity(m/s)')
-legend('velocity_x','velocity_y','velocity')
-%}
+legend('velocity')
 
-%{
 % acceleration of the robot
-hold off
-plot(t,axc)
+figure;
 hold on
-plot(t,ayc)
 plot(t,ac)
 xlabel('time(s)')
 ylabel('Acceleration(m/s**2)')
-legend('acceleration_x','acceleration_y','acceleration')
-%}
+legend('acceleration')
