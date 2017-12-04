@@ -4,7 +4,8 @@ figure;
 plot(robpos(:,2),robpos(:,end))
 title('position of the robots')
 xlabel('x-axis')
-ylabel('y-axis')   
+ylabel('y-axis')  
+legend('path of the robots')
 v = [];
 a = [];
 for t = 1:60
@@ -22,6 +23,7 @@ figure;
 plot(t,v)
 hold on
 plot(t,a)
+title('velocity and acceleration of the robots')
 legend('velocity','acceleration')
 xlabel('time(s)')
 ylabel({'Velocity(m/s)','acceleration(m/s**2)'}) 
@@ -51,6 +53,10 @@ figure;
 plot(robpos(:,2),robpos(:,end))
 hold on
 plot(sxfit,syfit)
+title('position of the robots')
+xlabel('x-axis(m)')
+ylabel('y-axis(m)')
+legend('Position(original)','Position(fitting)')
 %}
 
 % compare fitting velocity model to original 
@@ -94,11 +100,16 @@ t = linspace(1,60,60);
 figure;
 plot(sxc,syc)
 axis([0,2.4,-1.2,1.2])
+title('path of the robots')
+xlabel('x-axis(m)')
+ylabel('y-axis(m)')
+legend('Position')
 
 % velocity of the robot
 figure;
 hold on
 plot(t,vc)
+title('Velocity of the robots')
 xlabel('time(s)')
 ylabel('Velocity(m/s)')
 legend('velocity')
@@ -107,6 +118,7 @@ legend('velocity')
 figure;
 hold on
 plot(t,ac)
+title('acceleration of the robots')
 xlabel('time(s)')
 ylabel('Acceleration(m/s**2)')
 legend('acceleration')
