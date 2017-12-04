@@ -18,6 +18,7 @@ for t = 1:60
     end
 end
 t = linspace(1,60,60);
+figure;
 plot(t,v)
 hold on
 plot(t,a)
